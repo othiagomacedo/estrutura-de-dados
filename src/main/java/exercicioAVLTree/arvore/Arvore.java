@@ -19,6 +19,10 @@ public class Arvore {
         root = inserirNo(root, chaveDoNode);
     }
 
+    public void inserirNo(Node node) {
+        root = inserirNo(node,node.chave);
+    }
+
     private Node ultimaFolhaEsquerda(Node node) {
         Node noAtual = node;
         while (noAtual.esquerda != null) {
