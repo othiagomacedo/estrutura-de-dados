@@ -4,7 +4,7 @@ public class Arvore {
 
     private Node root;
 
-    public Node buscarNo(int chaveDoNode) {
+    public Node buscarNo(char chaveDoNode) {
         Node atual = root;
         while (atual != null) {
             if (atual.chave == chaveDoNode) {

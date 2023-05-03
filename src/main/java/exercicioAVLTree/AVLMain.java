@@ -1,30 +1,30 @@
 package exercicioAVLTree;
 
 import exercicioAVLTree.arvore.Arvore;
-import exercicioAVLTree.arvore.Node;
 import exercicioAVLTree.dicionario.leitura.Internalizador;
+import exercicioAVLTree.utils.LimpaConsole;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class AVLMain {
     static Arvore arvore;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         arvore = new Arvore();
+        consoleMenu();
     }
 
-    public void consoleMenu() throws IOException {
+    public static void consoleMenu() throws Exception {
         boolean saida = false;
         boolean carregamentoDicionario = false;
 
         Scanner sc = new Scanner(System.in);
+
         do{
             String selecao = "";
 
             //Carregamento de dicionários
             if (!carregamentoDicionario){
-                System.out.println("Carregue um dicionário.\n(1) - Informar um arquivo\n(2) - Carregar um salvo");
+                System.out.println("Carregue um dicionário.\n(1) - Informar um arquivo\n(2) - Carregar Dicionario Portugues já salvo");
                 selecao = sc.nextLine();
                 //De acordo com o menu, seleciona se vai carregar um arquivo ou vai usar um pré salvo, como o português como padrão
                 if (selecao.equalsIgnoreCase("1")) {
@@ -33,15 +33,28 @@ public class AVLMain {
 
                     //carrega o vetor de palavras a partir do arquivo
                     String[] vetorDePalavrasLido = Internalizador.leituraArquivo(selecao);
+                    carregamentoDicionario = true;
+                } else if (selecao.equalsIgnoreCase("2")){
+
+                    //carrega o vetor de palavras a partir do arquivo que está no projeto
+                    String[] vetorDePalavrasLido = Internalizador.leituraArquivo("./src/main/java/exercicioAVLTree/dicionario/dic/Portuguese (Brazilian).dic");
+                    carregamentoDicionario = true;
+                } else {
+                    System.out.println("Opcão inválida");
                 }
+
             }
 
+            LimpaConsole.start();
             //Verifica se continua o programa
             System.out.println("Continuar?\n(1) - SIM | (2) - NÃO");
             selecao = sc.nextLine();
             selecao = selecao.equalsIgnoreCase("1") ? "sair" : "não sair";
             if(selecao.equalsIgnoreCase("sair")){
+                LimpaConsole.start();
                 break;
+            } else {
+                LimpaConsole.start();
             }
         } while (!saida);
         sc.close();
