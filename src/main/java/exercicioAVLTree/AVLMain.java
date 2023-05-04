@@ -18,7 +18,6 @@ public class AVLMain {
 
     public static void consoleMenu() throws Exception {
         boolean saida = false;
-        boolean carregamentoDicionario = false;
 
         Scanner sc = new Scanner(System.in);
 
@@ -26,7 +25,7 @@ public class AVLMain {
             String selecao = "";
 
             //Carregamento de dicionários
-            if (!carregamentoDicionario){
+            if (Dicionario.getDicionario()==null){
                 System.out.println("Carregue um dicionário.\n(1) - Informar um arquivo\n(2) - Carregar Dicionario Portugues já salvo");
                 selecao = sc.nextLine();
                 //De acordo com o menu, seleciona se vai carregar um arquivo ou vai usar um pré salvo, como o português como padrão
@@ -36,29 +35,40 @@ public class AVLMain {
 
                     //carrega o vetor de palavras a partir do arquivo
                     Dicionario.setDicionario(Internalizador.leituraArquivo(selecao));
-                    carregamentoDicionario = true;
                 } else if (selecao.equalsIgnoreCase("2")){
 
                     //carrega o vetor de palavras a partir do arquivo que está no projeto
-                    Dicionario.setDicionario(Internalizador.leituraArquivo("./dicionario/dic/Portuguese (Brazilian).dic"));
-                    carregamentoDicionario = true;
+                    Dicionario.setDicionario(Internalizador.leituraArquivo("./src/main/java/exercicioAVLTree/dicionario/dic/Portuguese (Brazilian).dic"));
                 } else {
                     System.out.println("Opcão inválida");
                 }
 
             }
 
-            //TODO Inserir o nó na Arvore
+            int contadorLetras = 0;
+            //Inserir o nó na Arvore
             while(true){
-                char chave = ChaveRandom.aqueleCaractereLa();
-                Node no = arvore.buscarNo(chave);
-                if (no.equals(null)){
-                    arvore.inserirNo(new Node(chave));
+                try{
+                    char chave = ChaveRandom.aqueleCaractereLa();
+                    Node no = arvore.buscarNo(chave);
+                    if (no == null){
+                        System.out.println("Inserindo "+chave+" na árvore");
+                        contadorLetras++;
+                        arvore.inserirNo(new Node(chave));
+                    } else {
+                        break;
+                    }
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                    if (contadorLetras == 26){
+                        break;
+                    }
                 }
-                break;
             }
 
-            LimpaConsole.start();
+            //Imprime a arvore no console
+            arvore.printAVLTree();
+
             //Verifica se continua o programa
             System.out.println("Continuar?\n(1) - SIM | (2) - NÃO");
             selecao = sc.nextLine();

@@ -7,7 +7,7 @@ public class NodeVetor {
 
     private String[] vetorDePalavras;
 
-    NodeVetor(char identificador){
+    public NodeVetor(char identificador){
         this.identificador = identificador;
     }
 

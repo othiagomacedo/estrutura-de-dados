@@ -15,11 +15,12 @@ public class Arvore {
         return atual;
     }
 
-    public void inserirNo(char chaveDoNode) {
+    //TODO verificar a inserção do Node na árvore
+    public void inserirNo(char chaveDoNode) throws Exception {
         root = inserirNo(root, chaveDoNode);
     }
 
-    public void inserirNo(Node node) {
+    public void inserirNo(Node node) throws Exception {
         root = inserirNo(node,node.chave);
     }
 
@@ -31,7 +32,7 @@ public class Arvore {
         return noAtual;
     }
 
-    private Node inserirNo(Node node, char chaveDoNode) {
+    private Node inserirNo(Node node, char chaveDoNode) throws Exception {
         if (node == null) {
             return new Node(chaveDoNode);
         } else if (node.chave > chaveDoNode) {
@@ -39,7 +40,7 @@ public class Arvore {
         } else if (node.chave < chaveDoNode) {
             node.direita = inserirNo(node.direita, chaveDoNode);
         } else {
-            throw new RuntimeException("Essa chave já existe");
+            throw new Exception("Essa chave já existe");
         }
         return rebalance(node);
     }
