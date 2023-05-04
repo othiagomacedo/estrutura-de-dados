@@ -11,7 +11,7 @@ public class Node {
 
     NodeVetor vetorDoNode;
 
-    Node(char chave) {
+    public Node(char chave) {
         this.chave = chave;
         vetorDoNode.setIdentificador(chave);
     }

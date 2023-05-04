@@ -1,6 +1,9 @@
 package exercicioAVLTree;
 
 import exercicioAVLTree.arvore.Arvore;
+import exercicioAVLTree.arvore.Node;
+import exercicioAVLTree.dicionario.ChaveRandom;
+import exercicioAVLTree.dicionario.Dicionario;
 import exercicioAVLTree.dicionario.leitura.Internalizador;
 import exercicioAVLTree.utils.LimpaConsole;
 
@@ -32,12 +35,12 @@ public class AVLMain {
                     selecao = sc.nextLine();
 
                     //carrega o vetor de palavras a partir do arquivo
-                    String[] vetorDePalavrasLido = Internalizador.leituraArquivo(selecao);
+                    Dicionario.setDicionario(Internalizador.leituraArquivo(selecao));
                     carregamentoDicionario = true;
                 } else if (selecao.equalsIgnoreCase("2")){
 
                     //carrega o vetor de palavras a partir do arquivo que está no projeto
-                    String[] vetorDePalavrasLido = Internalizador.leituraArquivo("./src/main/java/exercicioAVLTree/dicionario/dic/Portuguese (Brazilian).dic");
+                    Dicionario.setDicionario(Internalizador.leituraArquivo("./dicionario/dic/Portuguese (Brazilian).dic"));
                     carregamentoDicionario = true;
                 } else {
                     System.out.println("Opcão inválida");
@@ -45,11 +48,21 @@ public class AVLMain {
 
             }
 
+            //TODO Inserir o nó na Arvore
+            while(true){
+                char chave = ChaveRandom.aqueleCaractereLa();
+                Node no = arvore.buscarNo(chave);
+                if (no.equals(null)){
+                    arvore.inserirNo(new Node(chave));
+                }
+                break;
+            }
+
             LimpaConsole.start();
             //Verifica se continua o programa
             System.out.println("Continuar?\n(1) - SIM | (2) - NÃO");
             selecao = sc.nextLine();
-            selecao = selecao.equalsIgnoreCase("1") ? "sair" : "não sair";
+            selecao = selecao.equalsIgnoreCase("1") ? "nao sair" : "sair";
             if(selecao.equalsIgnoreCase("sair")){
                 LimpaConsole.start();
                 break;
